@@ -153,7 +153,7 @@ class QRScanner : CDVPlugin, AVCaptureMetadataOutputObjectsDelegate {
                 metaOutput = AVCaptureMetadataOutput()
                 captureSession!.addOutput(metaOutput!)
                 metaOutput!.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
-                metaOutput!.metadataObjectTypes = [AVMetadataObject.ObjectType.qr, AVMetadataObject.ObjectType.ean8,AVMetadataObject.ObjectType.ean13, AVMetadataObject.ObjectType.code128, AVMetadataObject.ObjectType.code39] //ADDED BY SONIC
+                metaOutput!.metadataObjectTypes = [ AVMetadataObject.ObjectType.qr,   AVMetadataObject.ObjectType.ean8,AVMetadataObject.ObjectType.ean13, AVMetadataObject.ObjectType.code128, AVMetadataObject.ObjectType.code39, AVMetadataObject.ObjectType.codabar, AVMetadataObject.ObjectType.code39Mod43, AVMetadataObject.ObjectType.code93, AVMetadataObject.ObjectType.gs1DataBar, AVMetadataObject.ObjectType.gs1DataBarExpanded, AVMetadataObject.ObjectType.gs1DataBarLimited, AVMetadataObject.ObjectType.interleaved2of5, AVMetadataObject.ObjectType.itf14, AVMetadataObject.ObjectType.upce, AVMetadataObject.ObjectType.aztec, AVMetadataObject.ObjectType.dataMatrix, AVMetadataObject.ObjectType.microPDF417, AVMetadataObject.ObjectType.microQR, AVMetadataObject.ObjectType.pdf417 ] //ADDED BY SONIC
                 captureVideoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession!)
                 cameraView.addPreviewLayer(captureVideoPreviewLayer)
                 captureSession!.startRunning()
@@ -238,7 +238,7 @@ class QRScanner : CDVPlugin, AVCaptureMetadataOutputObjectsDelegate {
             return
         }
         let found = metadataObjects[0] as! AVMetadataMachineReadableCodeObject
-        if ((found.type == AVMetadataObject.ObjectType.qr || found.type == AVMetadataObject.ObjectType.ean8 || found.type == AVMetadataObject.ObjectType.ean13 || found.type == AVMetadataObject.ObjectType.code128 || found.type == AVMetadataObject.ObjectType.code39) && found.stringValue != nil) { //ADDED BY SONIC
+        if ((found.type == AVMetadataObject.ObjectType.qr || found.type == AVMetadataObject.ObjectType.ean8 || found.type == AVMetadataObject.ObjectType.ean13 || found.type == AVMetadataObject.ObjectType.code128 || found.type == AVMetadataObject.ObjectType.code39 || found.type == AVMetadataObject.ObjectType.codabar || found.type == AVMetadataObject.ObjectType.code39Mod43 || found.type == AVMetadataObject.ObjectType.code93 || found.type == AVMetadataObject.ObjectType.gs1DataBar || found.type == AVMetadataObject.ObjectType.gs1DataBarExpanded || found.type == AVMetadataObject.ObjectType.gs1DataBarLimited || found.type == AVMetadataObject.ObjectType.interleaved2of5 || found.type == AVMetadataObject.ObjectType.itf14 || found.type == AVMetadataObject.ObjectType.upce || found.type == AVMetadataObject.ObjectType.aztec || found.type == AVMetadataObject.ObjectType.dataMatrix || found.type == AVMetadataObject.ObjectType.microPDF417 || found.type == AVMetadataObject.ObjectType.microQR || found.type == AVMetadataObject.ObjectType.pdf417) && found.stringValue != nil) { //ADDED BY SONIC
             scanning = false
             let pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: found.stringValue)
             commandDelegate!.send(pluginResult, callbackId: nextScanningCommand?.callbackId!)
